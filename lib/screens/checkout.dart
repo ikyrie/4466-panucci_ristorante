@@ -4,6 +4,7 @@ import 'package:panucci_ristorante/components/custom_buttons.dart';
 import 'package:panucci_ristorante/components/order_item.dart';
 import 'package:panucci_ristorante/store/carrinho_store.dart';
 import 'package:panucci_ristorante/viewmodels/checkout_viewmodel.dart';
+import 'package:print_bluetooth_thermal/print_bluetooth_thermal.dart';
 import '../components/payment_method.dart';
 import '../components/payment_total.dart';
 
@@ -69,7 +70,44 @@ class Checkout extends StatelessWidget {
                     alignment: Alignment.bottomCenter,
                   child: CheckoutButton(
                     onTap: () async {
-                      await checkoutViewmodel.printReceipt(carrinhoStore.listaItem, carrinhoStore.totalDaCompra);
+                      if (await PrintBluetoothThermal.bluetoothEnabled) {
+                        if (await PrintBluetoothThermal.connectionStatus) {
+                          await checkoutViewmodel.printReceipt(
+                              carrinhoStore.listaItem,
+                              carrinhoStore.totalDaCompra);
+                        } else {
+                          showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              title: Text("Nenhum dispositivo conectado"),
+                              content: Text(
+                                  "É necessário se conectar com uma impressora para imprimir uma comanda"),
+                              actions: [
+                                TextButton(
+                                  child: Text("Ok"),
+                                  onPressed: () => Navigator.pop(context),
+                                ),
+                              ],
+                            ),
+                          );
+                        }
+                      } else {
+                        showModalBottomSheet(context: context, builder: (context) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 60, horizontal: 32),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                Icon(Icons.bluetooth, size: 48, color: Color(0xFFB81D27),),
+                                SizedBox(height: 24,),
+                                Text("Ativar Bluetooth", style: TextStyle(fontSize: 24),),
+                                SizedBox(height: 24,),
+                                Text("Para o aplicativo funcionar, precisamos que ligue o Bluetooth."),
+                              ],
+                            ),
+                          );
+                        },);
+                      }
                     },
                   ),
                 ),
