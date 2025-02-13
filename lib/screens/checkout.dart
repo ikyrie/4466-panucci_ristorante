@@ -69,7 +69,7 @@ class Checkout extends StatelessWidget {
                     alignment: Alignment.bottomCenter,
                   child: CheckoutButton(
                     onTap: () async {
-                      await checkoutViewmodel.printReceipt();
+                      await checkoutViewmodel.printReceipt(carrinhoStore.listaItem, carrinhoStore.totalDaCompra);
                     },
                   ),
                 ),
