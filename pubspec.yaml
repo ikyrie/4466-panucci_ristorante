@@ -37,6 +37,8 @@ dependencies:
   mobx: ^2.5.0
   flutter_mobx: ^2.3.0
   get_it: ^8.0.3
+  print_bluetooth_thermal: ^1.1.5
+  esc_pos_utils_plus: ^2.0.4
 
 dev_dependencies:
   flutter_test:

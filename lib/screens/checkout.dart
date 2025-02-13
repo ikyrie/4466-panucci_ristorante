@@ -3,6 +3,7 @@ import 'package:get_it/get_it.dart';
 import 'package:panucci_ristorante/components/custom_buttons.dart';
 import 'package:panucci_ristorante/components/order_item.dart';
 import 'package:panucci_ristorante/store/carrinho_store.dart';
+import 'package:print_bluetooth_thermal/print_bluetooth_thermal.dart';
 import '../components/payment_method.dart';
 import '../components/payment_total.dart';
 
@@ -65,7 +66,9 @@ class Checkout extends StatelessWidget {
                 child: Align(
                     alignment: Alignment.bottomCenter,
                   child: CheckoutButton(
-                    onTap: () {},
+                    onTap: () async {
+                      final bool result = await PrintBluetoothThermal.bluetoothEnabled;
+                    },
                   ),
                 ),
               )
