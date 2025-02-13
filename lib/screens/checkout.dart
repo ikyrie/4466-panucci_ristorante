@@ -68,6 +68,7 @@ class Checkout extends StatelessWidget {
                   child: CheckoutButton(
                     onTap: () async {
                       final bool result = await PrintBluetoothThermal.bluetoothEnabled;
+                      print(result);
                     },
                   ),
                 ),

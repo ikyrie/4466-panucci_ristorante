@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:panucci_ristorante/components/custom_buttons.dart';
 import 'package:panucci_ristorante/screens/home.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class PermissionsScreen extends StatelessWidget {
   const PermissionsScreen({super.key});
@@ -32,8 +33,13 @@ class PermissionsScreen extends StatelessWidget {
                   "Para fazer a impressão, a aplicação precisa de autorização do seu dispositivo para acessar o Bluetooth."),
               SizedBox(height: 32),
               CustomPrimaryButton(
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+                onTap: () async {
+                  await Permission.bluetoothScan.request();
+                  await Permission.bluetoothConnect.request();
+                  if (await Permission.bluetoothScan.isGranted && await Permission.bluetoothConnect.isGranted) {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Home()));
+                  }
                 },
                 text: "Autorizar Bluetooth",
               ),
