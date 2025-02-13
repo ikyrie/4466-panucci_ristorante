@@ -67,8 +67,42 @@ class Checkout extends StatelessWidget {
                     alignment: Alignment.bottomCenter,
                   child: CheckoutButton(
                     onTap: () async {
-                      final bool result = await PrintBluetoothThermal.bluetoothEnabled;
-                      print(result);
+                      final List<BluetoothInfo> listResult = await PrintBluetoothThermal.pairedBluetooths;
+                      await Future.forEach(listResult,
+                          (BluetoothInfo bluetooth) {
+                        String name = bluetooth.name;
+                        String mac = bluetooth.macAdress;
+                        print(name);
+                        print(mac);
+                      }); 
+                      String macAddress = "60:6E:41:62:D9:8C";
+                      final bool result = await PrintBluetoothThermal.connect(
+                          macPrinterAddress: macAddress);
+                      bool conexionStatus = await PrintBluetoothThermal.connectionStatus;
+                      if (conexionStatus) {
+                        String enter = '\n';
+                        await PrintBluetoothThermal.writeBytes(enter.codeUnits);
+                        //size of 1-5
+                        String text = "Hello $enter";
+                        await PrintBluetoothThermal.writeString(
+                            printText:
+                                PrintTextSize(size: 1, text: text + " size 1"));
+                        await PrintBluetoothThermal.writeString(
+                            printText:
+                                PrintTextSize(size: 2, text: text + " size 2"));
+                        await PrintBluetoothThermal.writeString(
+                            printText:
+                                PrintTextSize(size: 3, text: text + " size 3"));
+                        await PrintBluetoothThermal.writeString(
+                            printText:
+                                PrintTextSize(size: 2, text: text + " size 4"));
+                        await PrintBluetoothThermal.writeString(
+                            printText:
+                                PrintTextSize(size: 3, text: text + " size 5"));
+                      } else {
+                        print("the printer is disconnected ($conexionStatus)");
+                      }
+
                     },
                   ),
                 ),
