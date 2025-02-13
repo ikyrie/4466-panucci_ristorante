@@ -1,6 +1,7 @@
 import 'package:esc_pos_utils_plus/esc_pos_utils_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:panucci_ristorante/components/custom_buttons.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PrinterSettings extends StatelessWidget {
   PrinterSettings({super.key});
@@ -85,7 +86,12 @@ class PrinterSettings extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
                     CustomPrimaryButton(
-                      onTap: () async {},
+                      onTap: () async {
+                        final SharedPreferences preferences = await SharedPreferences.getInstance();
+                        preferences.setInt('paperSize', paperSize.value);
+                        preferences.setInt('textSize', textSize.value);
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Configurações salvas com sucesso!")));
+                      },
                       text: "Salvar configuração",
                     ),
                     SizedBox(height: 16,),
