@@ -1,16 +1,21 @@
-# panucci_ristorante
+![Mobile-Flutter_ Recursos nativos](https://github.com/user-attachments/assets/8f5bfe0f-e840-408c-a8bf-71aa79b62282)
 
-A new Flutter project.
 
-## Getting Started
+# Panucci Ristorante
 
-This project is a starting point for a Flutter application.
+App de simulação de um controle de mesas e impressão de comandas para cozinha e pagamento.
 
-A few resources to get you started if this is your first Flutter project:
+## 🔨 Funcionalidades do projeto
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+O App lista produtos com imagem, título, descrição e valor. Também, é possível se conectar com impressoras do tipo POS e imprimir as informações de pedido no formato de comanda.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 🛠️ Abrir e rodar o projeto
+
+Após baixar o projeto, você pode abrir com o Visual Studio Code. Para isso, na tela de boas-vindas clique em:
+
+- **Open Folder** (ou alguma opção similar)
+- Procure o local onde o projeto está e o selecione (Caso o projeto seja baixado via zip, é necessário extraí-lo antes de procurá-lo)
+- Por fim clique em OK
+
+O Visual Studio Code deve executar algumas tasks para configurar o projeto, aguarde até finalizar. Ao finalizar as tasks, você pode executar o App 🏆 
+
